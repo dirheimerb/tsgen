@@ -1,0 +1,701 @@
+{
+  "name": "tsc-config",
+  "displayName": "TSConfig Generator",
+  "description": "Generate tsconfig from settings",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.89.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onCommand:myExtension.generateTsConfig",
+    "onCommand:myExtension.generateTsConfigFromSettings",
+    "onLanguage:typescript"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "TSGen Compiler Options",
+      "properties": {
+        "composite": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable constraints that allow a TypeScript project to be used with project references."
+        },
+        "incremental": {
+          "type": "boolean",
+          "default": true,
+          "description": "Save .tsbuildinfo files to allow for incremental compilation of projects."
+        },
+        "jsx": {
+          "type": "string",
+          "enum": [
+            "preserve",
+            "react",
+            "react-jsx",
+            "react-jsxdev",
+            "react-native"
+          ],
+          "default": "",
+          "description": "Specify what JSX code is generated."
+        },
+        "target": {
+          "type": "string",
+          "enum": [
+            "ES3",
+            "ES5",
+            "ES6",
+            "ES2015",
+            "ES2016",
+            "ES2017",
+            "ES2018",
+            "ES2019",
+            "ES2020",
+            "ES2021",
+            "ES2022",
+            "ES2023",
+            "ESNext"
+          ],
+          "default": "ES3",
+          "description": "Specify what JavaScript language version is targeted."
+        },
+        "lib": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Decorators",
+              "Decorators.Legacy",
+              "DOM",
+              "DOM.Iterable",
+              "ES2015",
+              "ES2015.Collection",
+              "ES2015.Core",
+              "ES2015.Generator",
+              "ES2015.Iterable",
+              "ES2015.Promise",
+              "ES2015.Proxy",
+              "ES2015.Reflect",
+              "ES2015.Symbol",
+              "ES2015.Symbol.WellKnown",
+              "ES2016",
+              "ES2016.Array.Include",
+              "ES2017",
+              "ES2017.Date",
+              "ES2017.Intl",
+              "ES2017.Object",
+              "ES2017.SharedMemory",
+              "ES2017.String",
+              "ES2017.TypedArrays",
+              "ES2018",
+              "ES2018.AsyncGenerator",
+              "ES2018.AsyncIterable",
+              "ES2018.Intl",
+              "ES2018.Promise",
+              "ES2018.Regexp",
+              "ES2019",
+              "ES2019.Array",
+              "ES2019.Intl",
+              "ES2019.Object",
+              "ES2019.String",
+              "ES2019.Symbol",
+              "ES2020",
+              "ES2020.BigInt",
+              "ES2020.Date",
+              "ES2020.Intl",
+              "ES2020.Number",
+              "ES2020.Promise",
+              "ES2020.SharedMemory",
+              "ES2020.String",
+              "ES2020.Symbol.WellKnown",
+              "ES2021",
+              "ES2021.Intl",
+              "ES2021.Promise",
+              "ES2021.String",
+              "ES2021.WeakRef",
+              "ES2022",
+              "ES2022.Array",
+              "ES2022.Error",
+              "ES2022.Intl",
+              "ES2022.Object",
+              "ES2022.RegExp",
+              "ES2022.SharedMemory",
+              "ES2022.String",
+              "ES2023",
+              "ES2023.Array",
+              "ES2023.Collection",
+              "ES5",
+              "ES6",
+              "ES7",
+              "ESNext",
+              "ESNext.Array",
+              "ESNext.AsyncIterable",
+              "ESNext.BigInt",
+              "ESNext.Intl",
+              "ESNext.Symbol",
+              "ESNext.WeakRef",
+              "ScriptHost",
+              "WebWorker",
+              "WebWorker.ImportScripts",
+              "ESNext.Decorators",
+              "ESNext.Disposable",
+              "ESNext.Promise",
+              "ESNext.String",
+              "Webworker.Iterable"
+            ],
+            "uniqueItems": true,
+            "default": [],
+            "description": "Specify a set of bundled library declaration files that describe the target runtime environment."
+          }
+        },
+        "noEmit": {
+          "type": "boolean",
+          "default": false,
+          "description": "Prevent JavaScript output from being emitted"
+        },
+        "noEmitOnError": {
+          "type": "boolean",
+          "default": false,
+          "description": "Prevent emitting output if any errors are present"
+        },
+        "noImplicitAny": {
+          "type": "boolean",
+          "default": true,
+          "description": "Raise an error on variables with an 'any' type"
+        },
+        "outFile": {
+          "type": "string",
+          "default": "",
+          "description": "Specify a file that bundles all outputs into one JavaScript file. If 'declaration' is true, also designates a file that bundles all .d.ts output"
+        },
+        "outDir": {
+          "type": "string",
+          "default": "",
+          "description": "Specify an output folder for all emitted files."
+        },
+        "rootDir": {
+          "type": "string",
+          "default": "",
+          "description": "Root directory"
+        },
+        "skipLibCheck": {
+          "type": "boolean",
+          "default": false,
+          "description": "Skip type checking of declaration files"
+        },
+        "strictPropertyInitialization": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ensure all class properties are correctly initialized"
+        },
+        "tsBuildInfoFile": {
+          "type": "string",
+          "default": "./.tsbuildinfo",
+          "description": "Specify the path to .tsbuildinfo incremental compilation file."
+        },
+        "disableSourceOfProjectReferenceRedirect": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable emitting source files for project references"
+        },
+        "disableSolutionSearching": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable solution searching"
+        },
+        "disableReferencedProjectLoad": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable referenced project loading"
+        },
+        "jsxFactory": {
+          "type": "string",
+          "default": "React.createElement",
+          "description": "Specify the JSX factory function to use when targeting React JSX emit"
+        },
+        "jsxFragmentFactory": {
+          "type": "string",
+          "default": "React.Fragment",
+          "description": "Specify the JSX Fragment reference to use when targeting React JSX emit"
+        },
+        "jsxImportSource": {
+          "type": "string",
+          "default": "react",
+          "description": "Specify module specifier used to import the JSX factory functions when using 'jsx: react-jsx*'"
+        },
+        "reactNamespace": {
+          "type": "string",
+          "default": "React",
+          "description": "Specify the object invoked for 'createElement'"
+        },
+        "noLib": {
+          "type": "boolean",
+          "default": false,
+          "description": "Do not include the default library files (lib.d.ts)"
+        },
+        "useDefineForClassFields": {
+          "type": "boolean",
+          "default": false,
+          "description": "Emit ECMAScript-standard-compliant class fields"
+        },
+        "moduleDetection": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "force",
+            "legacy"
+          ],
+          "default": "auto",
+          "description": "Specify module detection mode"
+        },
+        "module": {
+          "type": "string",
+          "enum": [
+            "none",
+            "CommonJS",
+            "AMD",
+            "System",
+            "UMD",
+            "ES5",
+            "ES6",
+            "ES2015",
+            "ES2020",
+            "ES2022",
+            "ESNext",
+            "Node16",
+            "NodeNext"
+          ],
+          "default": [],
+          "description": "Specify module code generation mode"
+        },
+        "moduleResolution": {
+          "type": "string",
+          "enum": [
+            "Node",
+            "Classic",
+            "Bundler",
+            "Node16",
+            "NodeNext"
+          ],
+          "default": "node",
+          "description": "Specify module resolution mode"
+        },
+        "baseUrl": {
+          "type": "string",
+          "default": ".",
+          "description": "Specify the base directory to resolve non-absolute module names"
+        },
+        "paths": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "rootDirs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "List of root directories for the project"
+        },
+        "typeRoots": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "List of directories to include when resolving type definitions"
+        },
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Type definition packages to include in compilation"
+        },
+        "allowUmdGlobalAccess": {
+          "type": "boolean",
+          "default": false,
+          "description": "Allow accessing UMD globals from modules"
+        },
+        "moduleSuffixes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "List of suffixes to apply to module imports"
+        },
+        "allowImportingTsExtensions": {
+          "type": "boolean",
+          "default": false,
+          "description": "Allow importing `.ts` files with their extension"
+        },
+        "resolvePackageJsonExports": {
+          "type": "boolean",
+          "default": false,
+          "description": "Resolve the `exports` field in `package.json` files"
+        },
+        "resolvePackageJsonImports": {
+          "type": "boolean",
+          "default": false,
+          "description": "Resolve the `imports` field in `package.json` files"
+        },
+        "customConditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "examples": [
+            "`[NodeJS](https://nodejs.org/api/packages.html#nested-conditions)\r\n`{\r\n'type'': 'module',\r\n'exports': {\r\n'.': './index.cjs',\r\n'./module': './wrapper.mjs'\r\n}\r\n}`"
+          ],
+          "description": "Takes a list of additional conditions that should succeed when TypeScript resolves from an exports or imports field of a package.json. These conditions are added to whatever existing conditions a resolver will use by default."
+        },
+        "resolveJsonModule": {
+          "type": "boolean",
+          "default": true,
+          "description": "Allow importing `.json` files"
+        },
+        "allowArbitraryExtensions": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable importing files with any extension, provided a declaration file is present."
+        },
+        "noResolve": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable module resolution"
+        },
+        "allowJs": {
+          "type": "boolean",
+          "default": false,
+          "description": "Allow JavaScript files to be compiled"
+        },
+        "checkJs": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable type checking in JavaScript files"
+        },
+        "maxNodeModuleJsDepth": {
+          "type": "integer",
+          "default": 1,
+          "description": "Specify the maximum folder depth used for checking JavaScript files from `node_modules`. Only applicable with `allowJs`."
+        },
+        "experimentalDecorators": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable experimental support for legacy experimental decorators."
+        },
+        "emitDecoratorMetadata": {
+          "type": "boolean",
+          "default": false,
+          "description": "Emit design-type metadata for decorated declarations in source files."
+        },
+        "declaration": {
+          "type": "boolean",
+          "default": false,
+          "description": "Generate TypeScript declaration files (`.d.ts`)"
+        },
+        "declarationMap": {
+          "type": "boolean",
+          "default": false,
+          "description": "Generate source maps for declaration files"
+        },
+        "emitDeclarationOnly": {
+          "type": "boolean",
+          "default": false,
+          "description": "Only emit declaration files (`.d.ts`)"
+        },
+        "sourceMap": {
+          "type": "boolean",
+          "default": false,
+          "description": "Generate source maps for the compiled files"
+        },
+        "inlineSourceMap": {
+          "type": "boolean",
+          "default": false,
+          "description": "Emit source maps within the same file"
+        },
+        "removeComments": {
+          "type": "boolean",
+          "default": false,
+          "description": "Remove comments from output files"
+        },
+        "importHelpers": {
+          "type": "boolean",
+          "default": false,
+          "description": "Import helper functions from `tslib` to reduce emitted code size"
+        },
+        "importsNotUsedAsValues": {
+          "type": "string",
+          "enum": [
+            "remove",
+            "preserve",
+            "error"
+          ],
+          "default": "remove",
+          "description": "This flag controls how import works, there are 3 different options: remove, preserve, error. This flag works because you can use import type to explicitly create an import statement which should never be emitted into JavaScript."
+        },
+        "downlevelIteration": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable iteration-specific optimizations"
+        },
+        "sourceRoot": {
+          "type": "string",
+          "default": "",
+          "description": "Specify the location where debugger should locate TypeScript files"
+        },
+        "mapRoot": {
+          "type": "string",
+          "default": "",
+          "description": "Specify the location where debugger should locate map files"
+        },
+        "inlineSources": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable inline sources"
+        },
+        "emitBOM": {
+          "type": "boolean",
+          "default": false,
+          "description": "Emit a UTF-8 Byte Order Mark (BOM) in the beginning of output files"
+        },
+        "newLine": {
+          "type": "",
+          "default": "crlf",
+          "description": "Specify the end of line sequence to use when emitting files"
+        },
+        "stripInternal": {
+          "type": "boolean",
+          "default": false,
+          "description": "Do not emit declarations for internal declarations"
+        },
+        "noEmitHelpers": {
+          "type": "boolean",
+          "default": false,
+          "description": "Do not emit declarations for .d.ts files"
+        },
+        "preserveConstEnums": {
+          "type": "boolean",
+          "default": false,
+          "description": "Do not remove const enum declarations in generated code"
+        },
+        "declarationDir": {
+          "type": "string",
+          "default": "",
+          "description": "Specify the output directory for generated declaration files"
+        },
+        "preserveValueImports": {
+          "type": "boolean",
+          "default": false,
+          "description": "Preserve unused imported values in the JavaScript output that would otherwise be removed"
+        },
+        "isolatedModules": {
+          "type": "boolean",
+          "default": false,
+          "description": "Compile each file as an independent module"
+        },
+        "verbatimModuleSyntax": {
+          "type": "boolean",
+          "default": false,
+          "description": "Do not emit comments in output"
+        },
+        "allowSyntheticDefaultImports": {
+          "type": "boolean",
+          "default": false,
+          "description": "Allow default imports from modules with no default export. This does not affect code emit"
+        },
+        "esModuleInterop": {
+          "type": "boolean",
+          "default": false,
+          "description": "Emit additional JavaScript to ease support for importing CommonJS modules"
+        },
+        "preserveSymlinks": {
+          "type": "boolean",
+          "default": false,
+          "description": "Do not resolve symlinks to their real path when resolving modules"
+        },
+        "forceConsistentCasingInFileNames": {
+          "type": "boolean",
+          "default": false,
+          "description": "Ensure consistent casing in file names"
+        },
+        "strict": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable all strict type checking options"
+        },
+        "strictNullChecks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable strict null checks"
+        },
+        "strictFunctionTypes": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable strict checking of function types"
+        },
+        "strictBindCallApply": {
+          "type": "boolean",
+          "default": true,
+          "description": "true if `strict` is true; false otherwise.Enable strict 'bind', 'call', and 'apply' methods on functions"
+        },
+        "noImplicitThis": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable strict null checks on 'this' expressions"
+        },
+        "useUnknownInCatchVariables": {
+          "type": "boolean",
+          "default": false,
+          "description": "Report errors for variables with an implied 'any' type"
+        },
+        "alwaysStrict": {
+          "type": "boolean",
+          "default": false,
+          "description": "Ensure 'use strict' is always emitted"
+        },
+        "noUnusedLocals": {
+          "type": "boolean",
+          "default": false,
+          "description": "Report errors on unused locals"
+        },
+        "noUnusedParameters": {
+          "type": "boolean",
+          "default": false,
+          "description": "Report errors on unused parameters"
+        },
+        "exactOptionalPropertyTypes": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable exact checking of optional property types"
+        },
+        "noImplicitReturns": {
+          "type": "boolean",
+          "default": false,
+          "description": "Report error when not all code paths in function return a value"
+        },
+        "noFallthroughCasesInSwitch": {
+          "type": "boolean",
+          "default": false,
+          "description": "Report errors for fallthrough cases in switch statement"
+        },
+        "noUncheckedIndexedAccess": {
+          "type": "boolean",
+          "default": false,
+          "description": "Do not include 'undefined' in index signature results"
+        },
+        "noImplicitOverride": {
+          "type": "boolean",
+          "default": false,
+          "description": "Do not allow implicit overrides"
+        },
+        "noPropertyAccessFromIndexSignature": {
+          "type": "boolean",
+          "default": false,
+          "description": "Do not allow property access from index signature"
+        },
+        "allowUnusedLabels": {
+          "type": "boolean",
+          "default": false,
+          "description": "Do not report unused labels"
+        },
+        "allowUnreachableCode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disable error reporting for unreachable code"
+        },
+        "charset": {
+          "type": "string",
+          "default": "utf8",
+          "description": "Specify what charset to use in generated JavaScript"
+        },
+        "keyofStringsOnly": {
+          "type": "boolean",
+          "default": false,
+          "description": "Only emit string indexing signatures"
+        },
+        "noImplicitUseStrict": {
+          "type": "boolean",
+          "default": false,
+          "description": "Do not emit 'use strict' directives in output"
+        },
+        "suppressExcessPropertyErrors": {
+          "type": "boolean",
+          "default": false,
+          "description": "Suppress excess property errors"
+        },
+        "suppressImplicitAnyIndexErrors": {
+          "type": "boolean",
+          "default": false,
+          "description": "Suppress excess property errors"
+        },
+        "noStrictGenericChecks": {
+          "type": "boolean",
+          "default": false,
+          "description": "Do not emit strict null checks for generic signatures in functions"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "extension.generateTsConfig",
+        "title": "Generate TypeScript Configuration"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run compile",
+    "compile": "tsc -p ./",
+    "docs": "typedoc --out docs src/index.ts",
+    "watch": "tsc -watch -p ./",
+    "pretest": "pnpm run compile && pnpm run lint",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.2.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "20.2.5",
+    "@types/vscode": "^1.89.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
+    "@vscode/test-electron": "^2.3.2",
+    "eslint": "^8.57.0",
+    "glob": "^8.1.0",
+    "globals": "^15.1.0",
+    "mocha": "^10.2.0",
+    "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.6.2",
+    "tsx": "^4.9.3",
+    "typedoc": "^0.25.13",
+    "typedoc-material-theme": "^1.0.2",
+    "typedoc-plugin-mdn-links": "^3.1.24",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.8.0"
+  },
+  "packageManager": "pnpm@9.0.6+sha256.0624e30eff866cdeb363b15061bdb7fd9425b17bc1bb42c22f5f4efdea21f6b3",
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 70,
+    "tabWidth": 2,
+    "semi": true,
+    "arrowParens": "always",
+    "endOfLine": "auto"
+  }
+}
