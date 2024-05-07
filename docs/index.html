@@ -1,0 +1,568 @@
+<!doctype html>
+<html class="default" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <title>tsconfig-generator</title>
+    <meta
+      name="description"
+      content="Documentation for tsconfig-generator"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <link rel="stylesheet" href="assets/style.css" />
+    <link rel="stylesheet" href="assets/highlight.css" />
+    <script defer src="assets/main.js"></script>
+    <script
+      async
+      src="assets/icons.js"
+      id="tsd-icons-script"
+    ></script>
+    <script
+      async
+      src="assets/search.js"
+      id="tsd-search-script"
+    ></script>
+    <script
+      async
+      src="assets/navigation.js"
+      id="tsd-nav-script"
+    ></script>
+    <style>
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --md-sys-color-primary: #f6be46;
+          --md-sys-color-on-primary: #412d00;
+          --md-sys-color-primary-container: #5d4200;
+          --md-sys-color-on-primary-container: #ffdea3;
+          --md-sys-color-secondary: #d9c4a0;
+          --md-sys-color-on-secondary: #3b2f15;
+          --md-sys-color-secondary-container: #53452a;
+          --md-sys-color-on-secondary-container: #f6e0bb;
+          --md-sys-color-tertiary: #b2cfa8;
+          --md-sys-color-on-tertiary: #1e361a;
+          --md-sys-color-tertiary-container: #344d2f;
+          --md-sys-color-on-tertiary-container: #cdebc2;
+          --md-sys-color-error: #ffb4ab;
+          --md-sys-color-on-error: #690005;
+          --md-sys-color-error-container: #93000a;
+          --md-sys-color-on-error-container: #ffb4ab;
+          --md-sys-color-background: #1e1b16;
+          --md-sys-color-on-background: #e9e1d9;
+          --md-sys-color-surface: #1e1b16;
+          --md-sys-color-on-surface: #e9e1d9;
+          --md-sys-color-surface-variant: #4e4639;
+          --md-sys-color-on-surface-variant: #d1c5b4;
+          --md-sys-color-outline: #9a8f80;
+          --md-sys-color-outline-variant: #4e4639;
+          --md-sys-color-shadow: #000000;
+          --md-sys-color-scrim: #000000;
+          --md-sys-color-inverse-surface: #e9e1d9;
+          --md-sys-color-inverse-on-surface: #34302a;
+          --md-sys-color-inverse-primary: #7a5900;
+          --md-sys-color-surface-dim: #16130e;
+          --md-sys-color-surface-bright: #3d3933;
+          --md-sys-color-surface-container-lowest: #110e09;
+          --md-sys-color-surface-container-low: #1e1b16;
+          --md-sys-color-surface-container: #221f1a;
+          --md-sys-color-surface-container-high: #2d2924;
+          --md-sys-color-surface-container-highest: #38342e;
+        }
+      }
+      :root[data-theme='dark'] {
+        --md-sys-color-primary: #f6be46;
+        --md-sys-color-on-primary: #412d00;
+        --md-sys-color-primary-container: #5d4200;
+        --md-sys-color-on-primary-container: #ffdea3;
+        --md-sys-color-secondary: #d9c4a0;
+        --md-sys-color-on-secondary: #3b2f15;
+        --md-sys-color-secondary-container: #53452a;
+        --md-sys-color-on-secondary-container: #f6e0bb;
+        --md-sys-color-tertiary: #b2cfa8;
+        --md-sys-color-on-tertiary: #1e361a;
+        --md-sys-color-tertiary-container: #344d2f;
+        --md-sys-color-on-tertiary-container: #cdebc2;
+        --md-sys-color-error: #ffb4ab;
+        --md-sys-color-on-error: #690005;
+        --md-sys-color-error-container: #93000a;
+        --md-sys-color-on-error-container: #ffb4ab;
+        --md-sys-color-background: #1e1b16;
+        --md-sys-color-on-background: #e9e1d9;
+        --md-sys-color-surface: #1e1b16;
+        --md-sys-color-on-surface: #e9e1d9;
+        --md-sys-color-surface-variant: #4e4639;
+        --md-sys-color-on-surface-variant: #d1c5b4;
+        --md-sys-color-outline: #9a8f80;
+        --md-sys-color-outline-variant: #4e4639;
+        --md-sys-color-shadow: #000000;
+        --md-sys-color-scrim: #000000;
+        --md-sys-color-inverse-surface: #e9e1d9;
+        --md-sys-color-inverse-on-surface: #34302a;
+        --md-sys-color-inverse-primary: #7a5900;
+        --md-sys-color-surface-dim: #16130e;
+        --md-sys-color-surface-bright: #3d3933;
+        --md-sys-color-surface-container-lowest: #110e09;
+        --md-sys-color-surface-container-low: #1e1b16;
+        --md-sys-color-surface-container: #221f1a;
+        --md-sys-color-surface-container-high: #2d2924;
+        --md-sys-color-surface-container-highest: #38342e;
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --md-sys-color-primary: #7a5900;
+          --md-sys-color-on-primary: #ffffff;
+          --md-sys-color-primary-container: #ffdea3;
+          --md-sys-color-on-primary-container: #261900;
+          --md-sys-color-secondary: #6c5c3f;
+          --md-sys-color-on-secondary: #ffffff;
+          --md-sys-color-secondary-container: #f6e0bb;
+          --md-sys-color-on-secondary-container: #251a04;
+          --md-sys-color-tertiary: #4b6545;
+          --md-sys-color-on-tertiary: #ffffff;
+          --md-sys-color-tertiary-container: #cdebc2;
+          --md-sys-color-on-tertiary-container: #092007;
+          --md-sys-color-error: #ba1a1a;
+          --md-sys-color-on-error: #ffffff;
+          --md-sys-color-error-container: #ffdad6;
+          --md-sys-color-on-error-container: #410002;
+          --md-sys-color-background: #fffbff;
+          --md-sys-color-on-background: #1e1b16;
+          --md-sys-color-surface: #fffbff;
+          --md-sys-color-on-surface: #1e1b16;
+          --md-sys-color-surface-variant: #ede1cf;
+          --md-sys-color-on-surface-variant: #4e4639;
+          --md-sys-color-outline: #7f7667;
+          --md-sys-color-outline-variant: #d1c5b4;
+          --md-sys-color-shadow: #000000;
+          --md-sys-color-scrim: #000000;
+          --md-sys-color-inverse-surface: #34302a;
+          --md-sys-color-inverse-on-surface: #f8efe7;
+          --md-sys-color-inverse-primary: #f6be46;
+          --md-sys-color-surface-dim: #e1d9d0;
+          --md-sys-color-surface-bright: #fff8f2;
+          --md-sys-color-surface-container-lowest: #ffffff;
+          --md-sys-color-surface-container-low: #fbf2e9;
+          --md-sys-color-surface-container: #f5ede4;
+          --md-sys-color-surface-container-high: #efe7de;
+          --md-sys-color-surface-container-highest: #e9e1d9;
+        }
+      }
+      :root[data-theme='light'] {
+        --md-sys-color-primary: #7a5900;
+        --md-sys-color-on-primary: #ffffff;
+        --md-sys-color-primary-container: #ffdea3;
+        --md-sys-color-on-primary-container: #261900;
+        --md-sys-color-secondary: #6c5c3f;
+        --md-sys-color-on-secondary: #ffffff;
+        --md-sys-color-secondary-container: #f6e0bb;
+        --md-sys-color-on-secondary-container: #251a04;
+        --md-sys-color-tertiary: #4b6545;
+        --md-sys-color-on-tertiary: #ffffff;
+        --md-sys-color-tertiary-container: #cdebc2;
+        --md-sys-color-on-tertiary-container: #092007;
+        --md-sys-color-error: #ba1a1a;
+        --md-sys-color-on-error: #ffffff;
+        --md-sys-color-error-container: #ffdad6;
+        --md-sys-color-on-error-container: #410002;
+        --md-sys-color-background: #fffbff;
+        --md-sys-color-on-background: #1e1b16;
+        --md-sys-color-surface: #fffbff;
+        --md-sys-color-on-surface: #1e1b16;
+        --md-sys-color-surface-variant: #ede1cf;
+        --md-sys-color-on-surface-variant: #4e4639;
+        --md-sys-color-outline: #7f7667;
+        --md-sys-color-outline-variant: #d1c5b4;
+        --md-sys-color-shadow: #000000;
+        --md-sys-color-scrim: #000000;
+        --md-sys-color-inverse-surface: #34302a;
+        --md-sys-color-inverse-on-surface: #f8efe7;
+        --md-sys-color-inverse-primary: #f6be46;
+        --md-sys-color-surface-dim: #e1d9d0;
+        --md-sys-color-surface-bright: #fff8f2;
+        --md-sys-color-surface-container-lowest: #ffffff;
+        --md-sys-color-surface-container-low: #fbf2e9;
+        --md-sys-color-surface-container: #f5ede4;
+        --md-sys-color-surface-container-high: #efe7de;
+        --md-sys-color-surface-container-highest: #e9e1d9;
+      }
+    </style>
+    <link rel="stylesheet" href="assets/material-style.css" />
+  </head>
+  <body>
+    <script>
+      document.documentElement.dataset.theme =
+        localStorage.getItem('tsd-theme') || 'os';
+      document.body.style.display = 'none';
+      setTimeout(
+        () =>
+          app
+            ? app.showPage()
+            : document.body.style.removeProperty('display'),
+        500,
+      );
+    </script>
+    <header class="tsd-page-toolbar">
+      <div class="tsd-toolbar-contents container">
+        <div class="table-cell" id="tsd-search" data-base=".">
+          <div class="field">
+            <label
+              for="tsd-search-field"
+              class="tsd-widget tsd-toolbar-icon search no-caption"
+              ><svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <use
+                  href="assets/icons.svg#icon-search"
+                ></use></svg></label
+            ><input
+              type="text"
+              id="tsd-search-field"
+              aria-label="Search"
+            />
+          </div>
+          <div class="field"><div id="tsd-toolbar-links"></div></div>
+          <ul class="results">
+            <li class="state loading">Preparing search index...</li>
+            <li class="state failure">
+              The search index is not available
+            </li>
+          </ul>
+          <a href="index.html" class="title">tsconfig-generator</a>
+        </div>
+        <div class="table-cell" id="tsd-widgets">
+          <a
+            href="#"
+            class="tsd-widget tsd-toolbar-icon menu no-caption"
+            data-toggle="menu"
+            aria-label="Menu"
+            ><svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <use href="assets/icons.svg#icon-menu"></use></svg
+          ></a>
+        </div>
+      </div>
+    </header>
+    <div class="container container-main">
+      <div class="col-content">
+        <div class="tsd-page-title"><h2>tsconfig-generator</h2></div>
+        <div class="tsd-panel tsd-typography">
+          <a
+            id="md:tsconfig-generator-tsc-config"
+            class="tsd-anchor"
+          ></a>
+          <h1>
+            <a href="#md:tsconfig-generator-tsc-config"
+              >TSConfig Generator (tsc-config)</a
+            >
+          </h1>
+          <p>
+            <img
+              src="https://img.shields.io/badge/ts-tsconfig-green"
+              alt="ts-tsconfig"
+            />
+          </p>
+          <p>
+            TSConfig Generator is a Visual Studio Code extension that
+            generates <code>tsconfig.json</code> files based on user
+            settings.
+          </p>
+          <a id="md:features" class="tsd-anchor"></a>
+          <h2><a href="#md:features">Features</a></h2>
+          <ul>
+            <li>
+              <strong>Generate <code>tsconfig.json</code></strong
+              >: Automatically generate a
+              <code>tsconfig.json</code> file based on your settings
+              in the extension.
+            </li>
+            <li>
+              <strong>Customizable Compiler Settings</strong>: Control
+              multiple TypeScript compiler options like
+              <code>target</code>, <code>lib</code>, <code>jsx</code>,
+              etc.
+            </li>
+            <li>
+              <strong>Incremental Compilation Support</strong>:
+              Support for features like <code>incremental</code> and
+              <code>composite</code> compilation.
+            </li>
+            <li>
+              <strong>Advanced Project Management</strong>: Handles
+              complex project setups with <code>outDir</code>,
+              <code>rootDir</code>, and others.
+            </li>
+          </ul>
+          <p>
+            <img src="public/tsconfig-ss.png" alt="ts-tsconfig" />
+          </p>
+          <a id="md:installation" class="tsd-anchor"></a>
+          <h2><a href="#md:installation">Installation</a></h2>
+          <ol>
+            <li>Download and install Visual Studio Code.</li>
+            <li>
+              Search for and install
+              <code>TSConfig Generator</code> from the Extensions
+              marketplace.
+            </li>
+            <li>Reload Visual Studio Code if needed.</li>
+          </ol>
+          <pre><code class="language-bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">i</span><span class="hl-1"> </span><span class="hl-3">-D</span><span class="hl-1"> </span><span class="hl-2">tsc-config</span><br/><br/><span class="hl-4">## Configuration</span><br/><br/><span class="hl-0">The</span><span class="hl-1"> </span><span class="hl-2">extension</span><span class="hl-1"> </span><span class="hl-2">provides</span><span class="hl-1"> </span><span class="hl-2">multiple</span><span class="hl-1"> </span><span class="hl-2">configuration</span><span class="hl-1"> </span><span class="hl-2">options</span><span class="hl-1"> </span><span class="hl-2">in</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-2">settings:</span><br/><br/><span class="hl-0">-</span><span class="hl-1"> </span><span class="hl-3">**</span><span class="hl-2">Incremental</span><span class="hl-1"> </span><span class="hl-2">Compilation</span><span class="hl-3">**</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-2">Saves</span><span class="hl-1"> </span><span class="hl-2">`</span><span class="hl-0">.tsbuildinfo</span><span class="hl-2">`</span><span class="hl-1"> </span><span class="hl-0">files</span><span class="hl-1"> </span><span class="hl-2">for</span><span class="hl-1"> </span><span class="hl-2">incremental</span><span class="hl-1"> </span><span class="hl-2">compilation.</span><br/><span class="hl-0">-</span><span class="hl-1"> </span><span class="hl-3">**</span><span class="hl-2">Target</span><span class="hl-1"> </span><span class="hl-2">JavaScript</span><span class="hl-1"> </span><span class="hl-2">Version</span><span class="hl-3">**</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-2">Choose</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-2">JavaScript</span><span class="hl-1"> </span><span class="hl-2">language</span><span class="hl-1"> </span><span class="hl-2">version</span><span class="hl-1"> </span><span class="hl-2">to</span><span class="hl-1"> </span><span class="hl-2">target</span><span class="hl-1"> (e.g., </span><span class="hl-2">`</span><span class="hl-0">ES6</span><span class="hl-2">`</span><span class="hl-0">,</span><span class="hl-1"> </span><span class="hl-2">`</span><span class="hl-0">ESNext</span><span class="hl-2">`</span><span class="hl-1">).</span><br/><span class="hl-0">-</span><span class="hl-1"> </span><span class="hl-3">**</span><span class="hl-2">Libraries</span><span class="hl-3">**</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-2">Select</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-2">runtime</span><span class="hl-1"> </span><span class="hl-2">libraries</span><span class="hl-1"> </span><span class="hl-2">needed</span><span class="hl-1"> </span><span class="hl-2">for</span><span class="hl-1"> </span><span class="hl-2">your</span><span class="hl-1"> </span><span class="hl-2">project.</span><br/><br/><span class="hl-4">## Commands</span><br/><br/><span class="hl-0">-</span><span class="hl-1"> </span><span class="hl-3">**</span><span class="hl-2">Generate</span><span class="hl-1"> </span><span class="hl-2">TSConfig</span><span class="hl-3">**</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-2">Use</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-2">command</span><span class="hl-1"> </span><span class="hl-2">palette</span><span class="hl-1"> (</span><span class="hl-2">`</span><span class="hl-0">Ctrl+Shift+P</span><span class="hl-2">`</span><span class="hl-1"> </span><span class="hl-0">or</span><span class="hl-1"> </span><span class="hl-2">`</span><span class="hl-0">Cmd+Shift+P</span><span class="hl-2">`</span><span class="hl-1"> </span><span class="hl-0">on</span><span class="hl-1"> </span><span class="hl-2">Mac</span><span class="hl-1">) to find the </span><span class="hl-2">`</span><span class="hl-0">Generate</span><span class="hl-2"> TypeScript Configuration`</span><span class="hl-1"> </span><span class="hl-0">command</span><span class="hl-1"> </span><span class="hl-2">and</span><span class="hl-1"> </span><span class="hl-2">execute</span><span class="hl-1"> </span><span class="hl-2">it.</span><br/><br/><span class="hl-4">## Contributing</span><br/><br/><span class="hl-0">Contributions</span><span class="hl-1"> </span><span class="hl-2">are</span><span class="hl-1"> </span><span class="hl-2">welcome!</span><span class="hl-1"> </span><span class="hl-2">Please</span><span class="hl-1"> </span><span class="hl-2">follow</span><span class="hl-1"> </span><span class="hl-2">these</span><span class="hl-1"> </span><span class="hl-2">steps</span><span class="hl-1"> </span><span class="hl-2">to</span><span class="hl-1"> </span><span class="hl-2">contribute:</span><br/><br/><span class="hl-0">1.</span><span class="hl-1"> </span><span class="hl-2">Fork</span><span class="hl-1"> </span><span class="hl-2">this</span><span class="hl-1"> </span><span class="hl-2">repository.</span><br/><span class="hl-0">2.</span><span class="hl-1"> </span><span class="hl-2">Create</span><span class="hl-1"> </span><span class="hl-2">a</span><span class="hl-1"> </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-2">branch:</span><span class="hl-1"> </span><span class="hl-2">`</span><span class="hl-0">git</span><span class="hl-2"> checkout </span><span class="hl-3">-b</span><span class="hl-2"> feature-branch`</span><span class="hl-0">.</span><br/><span class="hl-0">3.</span><span class="hl-1"> </span><span class="hl-2">Make</span><span class="hl-1"> </span><span class="hl-2">your</span><span class="hl-1"> </span><span class="hl-2">changes</span><span class="hl-1"> </span><span class="hl-2">and</span><span class="hl-1"> </span><span class="hl-2">commit</span><span class="hl-1"> </span><span class="hl-2">them.</span><br/><span class="hl-0">4.</span><span class="hl-1"> </span><span class="hl-2">Push</span><span class="hl-1"> </span><span class="hl-2">your</span><span class="hl-1"> </span><span class="hl-2">branch:</span><span class="hl-1"> </span><span class="hl-2">`</span><span class="hl-0">git</span><span class="hl-2"> push origin feature-branch`</span><span class="hl-0">.</span><br/><span class="hl-0">5.</span><span class="hl-1"> </span><span class="hl-2">Open</span><span class="hl-1"> </span><span class="hl-2">a</span><span class="hl-1"> </span><span class="hl-2">Pull</span><span class="hl-1"> </span><span class="hl-2">Request</span><span class="hl-1"> (PR) and describe your changes.</span><br/><br/><span class="hl-4">## License</span><br/><br/><span class="hl-0">This</span><span class="hl-1"> </span><span class="hl-2">project</span><span class="hl-1"> </span><span class="hl-2">is</span><span class="hl-1"> </span><span class="hl-2">licensed</span><span class="hl-1"> </span><span class="hl-2">under</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-2">MIT</span><span class="hl-1"> </span><span class="hl-2">License.</span>
+</code><button>Copy</button></pre>
+        </div>
+      </div>
+      <div class="col-sidebar">
+        <div class="page-menu">
+          <div class="tsd-navigation settings">
+            <details class="tsd-index-accordion">
+              <summary class="tsd-accordion-summary">
+                <h3>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <use
+                      href="assets/icons.svg#icon-chevronDown"
+                    ></use></svg
+                  >Settings
+                </h3>
+              </summary>
+              <div class="tsd-accordion-details">
+                <div class="tsd-filter-visibility">
+                  <h4 class="uppercase">Member Visibility</h4>
+                  <form>
+                    <ul id="tsd-filter-options">
+                      <li class="tsd-filter-item">
+                        <label class="tsd-filter-input"
+                          ><input
+                            type="checkbox"
+                            id="tsd-filter-protected"
+                            name="protected"
+                          /><svg
+                            width="32"
+                            height="32"
+                            viewBox="0 0 32 32"
+                            aria-hidden="true"
+                          >
+                            <rect
+                              class="tsd-checkbox-background"
+                              width="30"
+                              height="30"
+                              x="1"
+                              y="1"
+                              rx="6"
+                              fill="none"
+                            ></rect>
+                            <path
+                              class="tsd-checkbox-checkmark"
+                              d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25"
+                              stroke="none"
+                              stroke-width="3.5"
+                              stroke-linejoin="round"
+                              fill="none"
+                            ></path></svg
+                          ><span>Protected</span></label
+                        >
+                      </li>
+                      <li class="tsd-filter-item">
+                        <label class="tsd-filter-input"
+                          ><input
+                            type="checkbox"
+                            id="tsd-filter-private"
+                            name="private"
+                          /><svg
+                            width="32"
+                            height="32"
+                            viewBox="0 0 32 32"
+                            aria-hidden="true"
+                          >
+                            <rect
+                              class="tsd-checkbox-background"
+                              width="30"
+                              height="30"
+                              x="1"
+                              y="1"
+                              rx="6"
+                              fill="none"
+                            ></rect>
+                            <path
+                              class="tsd-checkbox-checkmark"
+                              d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25"
+                              stroke="none"
+                              stroke-width="3.5"
+                              stroke-linejoin="round"
+                              fill="none"
+                            ></path></svg
+                          ><span>Private</span></label
+                        >
+                      </li>
+                      <li class="tsd-filter-item">
+                        <label class="tsd-filter-input"
+                          ><input
+                            type="checkbox"
+                            id="tsd-filter-inherited"
+                            name="inherited"
+                            checked
+                          /><svg
+                            width="32"
+                            height="32"
+                            viewBox="0 0 32 32"
+                            aria-hidden="true"
+                          >
+                            <rect
+                              class="tsd-checkbox-background"
+                              width="30"
+                              height="30"
+                              x="1"
+                              y="1"
+                              rx="6"
+                              fill="none"
+                            ></rect>
+                            <path
+                              class="tsd-checkbox-checkmark"
+                              d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25"
+                              stroke="none"
+                              stroke-width="3.5"
+                              stroke-linejoin="round"
+                              fill="none"
+                            ></path></svg
+                          ><span>Inherited</span></label
+                        >
+                      </li>
+                      <li class="tsd-filter-item">
+                        <label class="tsd-filter-input"
+                          ><input
+                            type="checkbox"
+                            id="tsd-filter-external"
+                            name="external"
+                          /><svg
+                            width="32"
+                            height="32"
+                            viewBox="0 0 32 32"
+                            aria-hidden="true"
+                          >
+                            <rect
+                              class="tsd-checkbox-background"
+                              width="30"
+                              height="30"
+                              x="1"
+                              y="1"
+                              rx="6"
+                              fill="none"
+                            ></rect>
+                            <path
+                              class="tsd-checkbox-checkmark"
+                              d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25"
+                              stroke="none"
+                              stroke-width="3.5"
+                              stroke-linejoin="round"
+                              fill="none"
+                            ></path></svg
+                          ><span>External</span></label
+                        >
+                      </li>
+                    </ul>
+                  </form>
+                </div>
+                <div class="tsd-theme-toggle">
+                  <h4 class="uppercase">Theme</h4>
+                  <select id="tsd-theme">
+                    <option value="os">OS</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                  </select>
+                </div>
+              </div>
+            </details>
+          </div>
+          <details
+            open
+            class="tsd-index-accordion tsd-page-navigation"
+          >
+            <summary class="tsd-accordion-summary">
+              <h3>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <use
+                    href="assets/icons.svg#icon-chevronDown"
+                  ></use></svg
+                >On This Page
+              </h3>
+            </summary>
+            <div class="tsd-accordion-details">
+              <a href="#md:tsconfig-generator-tsc-config"
+                ><span
+                  >TSConfig <wbr />Generator (tsc-<wbr />config)</span
+                ></a
+              >
+              <ul>
+                <li>
+                  <a href="#md:features"><span>Features</span></a>
+                </li>
+                <li>
+                  <a href="#md:installation"
+                    ><span>Installation</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <div class="site-menu">
+          <nav class="tsd-navigation">
+            <a href="modules.html" class="current"
+              ><svg class="tsd-kind-icon" viewBox="0 0 24 24">
+                <use href="assets/icons.svg#icon-1"></use></svg
+              ><span>tsconfig-generator</span></a
+            >
+            <ul
+              class="tsd-small-nested-navigation"
+              id="tsd-nav-container"
+              data-base="."
+            >
+              <li>Loading...</li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p class="tsd-generator">
+        Generated using
+        <a href="https://typedoc.org/" target="_blank">TypeDoc</a>
+      </p>
+    </footer>
+    <div class="overlay"></div>
+    <script>
+      try {
+        const generateLinkElement = document.querySelector(
+          '.tsd-generator a',
+        );
+        const link = document.createElement('a');
+        Object.assign(link, {
+          href: 'https://github.com/dmnsgn/typedoc-material-theme',
+          target: '_blank',
+          rel: 'noreferrer',
+          innerText: 'typedoc-material-theme.',
+        });
+        generateLinkElement.insertAdjacentElement('afterend', link);
+        generateLinkElement.insertAdjacentText('afterend', ' with ');
+      } catch (error) {}
+    </script>
+  </body>
+</html>

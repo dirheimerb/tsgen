@@ -1,5 +1,7 @@
 # TSConfig Generator (tsc-config)
 
+![ts-tsconfig](https://img.shields.io/badge/ts-tsconfig-green)
+
 TSConfig Generator is a Visual Studio Code extension that generates `tsconfig.json` files based on user settings.
 
 ## Features
@@ -8,6 +10,8 @@ TSConfig Generator is a Visual Studio Code extension that generates `tsconfig.js
 - **Customizable Compiler Settings**: Control multiple TypeScript compiler options like `target`, `lib`, `jsx`, etc.
 - **Incremental Compilation Support**: Support for features like `incremental` and `composite` compilation.
 - **Advanced Project Management**: Handles complex project setups with `outDir`, `rootDir`, and others.
+
+![ts-tsconfig](public/tsconfig-ss.png)
 
 ## Installation
 
@@ -43,3 +47,4 @@ Contributions are welcome! Please follow these steps to contribute:
 ## License
 
 This project is licensed under the MIT License.
+```

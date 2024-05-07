@@ -3,6 +3,7 @@
   "displayName": "TSConfig Generator",
   "description": "Generate tsconfig from settings",
   "version": "0.0.1",
+  "docs": "/docs/index.html",
   "engines": {
     "vscode": "^1.89.0"
   },
@@ -16,7 +17,45 @@
     "onLanguage:typescript"
   ],
   "main": "./dist/extension.js",
+  "module": "./dist/extension.js",
+  "exports": {
+    ".": {
+      "require": "./dist/extension.js",
+      "import": "./dist/extension.js",
+      "types": "./dist/extension.d.ts",
+      "default": "./dist/extension.js"
+    }
+  },
+  "author": {
+    "name": "Bradley Dirheimer",
+    "url": "https://github.com/dirheimerb"
+  },
+  "repository": {
+    "type": "git",
+    "directory": "tsc-config",
+    "url": "https://github.com/dirheimerb/tsgen"
+  },
+  "bugs": {
+    "url": "https://github.com/dirheimerb/tsgen/issues"
+  },
+  "keywords": [
+    "typescript",
+    "tsconfig",
+    "tsc",
+    "tsconfig generator"
+  ],
+  "license": "MIT",
   "contributes": {
+    "icons": {
+      "ts-tsconfig": {
+        "description": "tsconfig icon",
+        "default": {
+          "fontCharacter": "†∫",
+          "fontPath": "/public/tsconfig.png",
+          "id": "ts-tsconfig"
+        }
+      }
+    },
     "configuration": {
       "type": "object",
       "title": "TSGen Compiler Options",
@@ -658,7 +697,7 @@
   "scripts": {
     "vscode:prepublish": "pnpm run compile",
     "compile": "tsc -p ./",
-    "docs": "typedoc --out docs src/index.ts",
+    "docs": "typedoc",
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint .",
